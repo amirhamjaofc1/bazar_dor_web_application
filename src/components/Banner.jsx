@@ -1,5 +1,6 @@
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Banner() {
   return (
@@ -21,9 +22,9 @@ export default function Banner() {
             পরিবর্তনের এক জায়গায়।
           </p>
 
-          <button className="mt-6 rounded-lg bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-green-800">
+          <Link href="#AllProduct"> <button className="mt-6 rounded-lg bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-green-800">
             সব পণ দেখুন
-          </button>
+          </button></Link>
         </div>
 
         <div className="flex w-full justify-center md:w-2/5">

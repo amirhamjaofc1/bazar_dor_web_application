@@ -1,10 +1,11 @@
+import Link from "next/link";
+
 export default async function ProductDown() {
-    'use cache';
+  "use cache";
   const Product = await fetch(
     "https://api.api-store.workers.dev/api/bazardor/products",
   );
   const products = await Product.json();
-
 
   //   {products
   //   .filter((p) => p.change?.dir === "up")
@@ -14,24 +15,22 @@ export default async function ProductDown() {
   //     </div>
   //   ))}
 
+  return (
+    <>
+      <section>
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-5 mt-5 flex items-center gap-2 text-xl font-bold text-[#202820]">
+            <span className="text-green-500">▼</span>
+            আজ দাম কমেছে
+          </h2>
 
-    return (
-      <>
-        <section>
-          <div className="mx-auto max-w-6xl">
-            <h2 className="mb-5 mt-5 flex items-center gap-2 text-xl font-bold text-[#202820]">
-              <span className="text-green-500">▼</span>
-              আজ দাম কমেছে
-            </h2>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {products.slice(0, 20)
-                .filter((p) => p.change?.dir === "down")
-                .map((p) => (
-                  <div
-                    key={p.id}
-                    className="rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-4 transition hover:shadow-md"
-                  >
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {products
+              .slice(0, 20)
+              .filter((p) => p.change?.dir === "down")
+              .map((p) => (
+                <Link key={p.id} href={`/${p.id}`}>
+                  <div className="rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-4 transition hover:shadow-md">
                     <div className="flex items-center gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f0f5f0] text-2xl">
                         {p.categoryIcon}
@@ -61,11 +60,11 @@ export default async function ProductDown() {
                       </span>
                     </div>
                   </div>
-                ))}
-            </div>
+                </Link>
+              ))}
           </div>
-        </section>
-      </>
-    );
-  }
-
+        </div>
+      </section>
+    </>
+  );
+}

@@ -8,7 +8,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-2">
             <Image className="bg-green-600 p-3 rounded-2xl" src="/logo-icon.png" alt="Bazar Dor Logo" width={50} height={50} />
             <div>
-            <h1 className="text-xl font-bold text-gray-800">Bazar Dor</h1>
+            <Link href="/"> <h1 className="text-lg font-bold text-green-600">বাজার দর</h1></Link>
             <h5 className="text-xs font-light text-gray-500">মঙ্গলবার, ৬ অক্টোবর, ২০২৬</h5>
             </div>
         </div>

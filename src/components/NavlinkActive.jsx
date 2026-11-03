@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 
 export default function CategoryLink({ categories }) {
   const pathname = usePathname();
-  const href = `/categories/slug/${categories.id}`;
+  const href = `/cetagory/${categories.id}`;
   const isActive = pathname === href;
-
   return (
     <Link
       href={href}
