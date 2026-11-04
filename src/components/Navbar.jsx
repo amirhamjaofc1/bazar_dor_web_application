@@ -13,8 +13,8 @@ export default function Navbar() {
             </div>
         </div>
         <div className="space-x-4">
-            <Link href="/login"> <button className="hover:bg-green-700 hover:text-white text-black font-bold py-2 px-4 rounded-2xl shadow-md">সাইন ইন</button></Link>
-            <Link href="/register"> <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl shadow-md">সাইন আপ</button></Link>
+            <Link href="/signin"> <button className="hover:bg-green-700 hover:text-white text-black font-bold py-2 px-4 rounded-2xl shadow-md">সাইন ইন</button></Link>
+            <Link href="/signup"> <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl shadow-md">সাইন আপ</button></Link>
         </div>
       </div>
     </div>
