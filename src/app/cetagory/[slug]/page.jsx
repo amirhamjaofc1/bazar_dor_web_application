@@ -1,12 +1,17 @@
+import { Suspense } from "react";
 import CetagoryPageProduct from "@/components/CetagoryPageProduct";
 
-export default async function CetagoryPage({ params }) {
+async function getCategoryProducts(slug) {
   "use cache";
-  const { slug } = await params;
   const data = await fetch(
     `https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`,
   );
-  const product = await data.json();
+  return data.json();
+}
+
+async function CetagoryPageContent({ params }) {
+  const { slug } = await params;
+  const product = await getCategoryProducts(slug);
   console.log(product);
   return (
     <section className="min-h-screen bg-[#f0f6f1] px-3 py-5 md:px-5">
@@ -30,5 +35,13 @@ export default async function CetagoryPage({ params }) {
       </div>
       <CetagoryPageProduct products={product} />
     </section>
+  );
+}
+
+export default function CetagoryPage({ params }) {
+  return (
+    <Suspense fallback={<p className="p-5 text-center">পণ্য লোড হচ্ছে...</p>}>
+      <CetagoryPageContent params={params} />
+    </Suspense>
   );
 }
