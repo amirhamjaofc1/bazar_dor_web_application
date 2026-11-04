@@ -8,6 +8,7 @@ const db = client.db("bazar_dor_database");
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
+    autoSignIn: false,
   },
   database: mongodbAdapter(db, {
     client,

@@ -28,7 +28,7 @@ export default function SignUp() {
     });
     if (data) {
       alert("no error");
-      redirect("/");
+      redirect("/signin");
     }
     if (error) {
       console.error("Signup failed:", error);
