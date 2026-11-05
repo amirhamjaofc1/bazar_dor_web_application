@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import CetagoryPageProduct from "@/components/CetagoryPageProduct";
+import CategoryProducts from "@/components/CetagoryDrowpdown";
 
 async function getCategoryProducts(slug) {
   "use cache";
@@ -32,8 +32,10 @@ async function CetagoryPageContent({ params }) {
             </div>
           </div>
         </div>
+
       </div>
-      <CetagoryPageProduct products={product} />
+
+      <CategoryProducts products={product} />
     </section>
   );
 }

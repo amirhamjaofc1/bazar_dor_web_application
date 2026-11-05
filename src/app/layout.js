@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Navlinks from "@/components/Navlinks";
 import Marquee from "@/components/marquee";
 import Footer from "@/components/Footer";
+import ToastNotifications from "@/components/ToastNotifications";
 import { Suspense } from "react";
 
 const geistSans = Noto_Sans_Bengali({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <ToastNotifications />
         <Navbar />
         <Navlinks />
 

@@ -10,19 +10,21 @@ export default async function Navlinks() {
   const categories = await data.json();
 
   return (
-    <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-4 p-4 shadow-ms mb-0.5 bg-white">
-      {categories.map((c) => (
-        <div key={c.slug} className="flex items-center gap-2">
-          {c.icon}
+    <nav
+      aria-label="Product categories"
+      className="mb-0.5 w-full overflow-x-auto bg-white shadow-sm"
+    >
+      <div className="flex w-max min-w-full flex-nowrap items-center gap-4 p-4 md:w-full md:flex-wrap md:justify-center">
+        {categories.map((c) => (
+          <div key={c.slug} className="flex shrink-0 items-center gap-2">
+            {c.icon}
 
-          <Suspense fallback={<div>Loading...</div>}>
-            <CategoryLink
-              categories={c}
-              label={c.name}
-            />
-          </Suspense>
-        </div>
-      ))}
-    </div>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CategoryLink categories={c} label={c.name} />
+            </Suspense>
+          </div>
+        ))}
+      </div>
+    </nav>
   );
 }

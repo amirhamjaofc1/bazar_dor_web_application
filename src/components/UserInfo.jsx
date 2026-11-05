@@ -13,7 +13,16 @@ export default function UserInfo() {
 
 
   const user = sesson?.user;
-  console.log("user is", user);
+
+  if (isPending) {
+    return (
+      <div className="flex animate-pulse gap-2" aria-label="Loading account">
+        <div className="h-10 w-20 rounded-2xl bg-gray-200" />
+        <div className="h-10 w-20 rounded-2xl bg-gray-200" />
+      </div>
+    );
+  }
+
   return (
     <>
       {user ? (

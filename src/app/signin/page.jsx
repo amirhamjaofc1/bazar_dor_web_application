@@ -12,49 +12,66 @@ import {
   Form,
   Input,
   Label,
-  signIn,
   TextField,
 } from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 // import { Form, FieldGroup, TextField, Label, Input, FieldError, Button } from "@better-auth/react";
 
 export default function SignIn() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
-    const { data: signupdata, error } = await authClient.signIn.email({
-      email: data.email,
-      password: data.password,
-    });
-    if (data) {
-      alert("no error");
-      redirect("/");
-    }
-    if (error) {
-      console.error("Signup failed:", error);
-      alert(error.message);
-      return;
-    }
+    setIsSubmitting(true);
+    try {
+      const { data: signinData, error } = await authClient.signIn.email({
+        email: data.email,
+        password: data.password,
+      });
 
-    console.log("Signup response:", signupdata);
+      if (error) {
+        toast.error(error.message || "Email or password is incorrect.");
+        return;
+      }
+
+      if (!signinData) {
+        toast.error("Could not sign in. Please try again.");
+        return;
+      }
+
+      toast.success("Signed in successfully.");
+      router.push("/");
+    } catch (error) {
+      console.error("Sign-in failed:", error);
+      toast.error("Could not sign in. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <main className="min-h-screen bg-[#f1f6f2] flex flex-col items-center justify-center px-4 py-10">
       <div className="text-center mb-5">
         <h1 className="text-2xl font-bold text-[#202a23]">
-          অ্যাকাউন্ট তৈরি করুন
+          সাইন ইন করুন
         </h1>
 
         <p className="text-xs text-gray-500 mt-1">
-          বিনা ঝামেলায় সাইন আপ করে সবকিছু দেখতে শুরু করুন।
+          আপনার অ্যাকাউন্টে সাইন ইন করুন।
         </p>
       </div>
       <div className="w-full max-w-xl bg-[#fbfdfb] border border-[#e2e9e3] rounded-xl p-5">
-        <Form className="w-full" onSubmit={handleSubmit}>
+        <Form
+          className="w-full"
+          onSubmit={handleSubmit}
+          onInvalid={() => toast.error("Please enter a valid email and password.")}
+        >
           <FieldGroup className="gap-3">
             {/* Email */}
             <TextField isRequired name="email" type="email">
@@ -69,27 +86,7 @@ export default function SignIn() {
             </TextField>
 
             {/* Password */}
-            <TextField
-              isRequired
-              name="password"
-              type="password"
-              minLength={8}
-              validate={(value) => {
-                if (value.length < 8) {
-                  return "Password must be at least 8 characters";
-                }
-
-                if (!/[A-Z]/.test(value)) {
-                  return "Password must contain one uppercase letter";
-                }
-
-                if (!/[0-9]/.test(value)) {
-                  return "Password must contain one number";
-                }
-
-                return null;
-              }}
-            >
+            <TextField isRequired name="password" type="password">
               <Label className="text-xs font-medium text-gray-800 mt-2 mb-1">
                 পাসওয়ার্ড
               </Label>
@@ -104,9 +101,10 @@ export default function SignIn() {
           {/* Create Account Button */}
           <Button
             type="submit"
+            disabled={isSubmitting}
             className="w-full h-9 mt-3 rounded-lg bg-[#078c43] hover:bg-[#067a3a] text-white text-xs font-semibold shadow-md"
           >
-            অ্যাকাউন্ট তৈরি করুন
+            {isSubmitting ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
           </Button>
         </Form>
 
@@ -140,14 +138,13 @@ export default function SignIn() {
           </button>
         </div>
 
-        {/* Login Link */}
         <p className="text-center text-xs text-gray-600 mt-4">
-          অ্যাকাউন্ট আছে?{" "}
+          অ্যাকাউন্ট নেই?{" "}
           <a
-            href="/login"
+            href="/signup"
             className="text-[#078c43] font-semibold hover:underline"
           >
-            সাইন ইন করুন
+            সাইন আপ করুন
           </a>
         </p>
       </div>

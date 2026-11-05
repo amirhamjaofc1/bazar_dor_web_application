@@ -2,21 +2,27 @@ import { NextResponse } from 'next/server'
 import { auth } from './lib/auth'
 import { headers } from 'next/headers'
 
-// This function can be marked `async` if using `await` inside
+
 export async function proxy(request) {
-    const session = await auth.api.getSession({
-        headers: await headers()
-    })
+  const { pathname } = request.nextUrl;
+
+  if (pathname === "/signin" || pathname === "/signup") {
+    return NextResponse.next();
+  }
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session?.user) {
-    return NextResponse.redirect(
-      new URL("/signin", request.url)
-    );
+    const signInUrl = new URL("/signin", request.url);
+    signInUrl.searchParams.set("auth", "protected");
+    return NextResponse.redirect(signInUrl);
   }
 
   return NextResponse.next();
 }
+
 export const config = {
-        
-  matcher: ['/profile','/:slug'],
-}
+  matcher: ["/profile", "/:slug"],
+};

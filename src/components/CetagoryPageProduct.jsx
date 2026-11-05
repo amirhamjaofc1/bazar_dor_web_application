@@ -1,17 +1,16 @@
+import Link from "next/link";
+
 export default function CetagoryPageProduct({ products }) {
   return (
-    <>
-      <section>
-        <div className="mx-auto max-w-6xl mb-8">
-          <p className="text-sm font-normal text-gray-400 m-6">
-            মোট {products.length}টি পণ্য দেখানো হচ্ছে
-          </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((p) => (
-              <div
-                key={p.id}
-                className="rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-4 transition hover:shadow-md"
-              >
+    <section>
+      <div className="mx-auto mb-8 max-w-6xl">
+        <p className="m-6 text-sm font-normal text-gray-400">
+          মোট {products.length}টি পণ্য দেখানো হচ্ছে
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((p) => (
+            <Link key={p.id} href={`/${p.id}`}>
+              <div className="rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-4 transition hover:shadow-md">
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f0f5f0] text-2xl">
                     {p.categoryIcon}
@@ -24,6 +23,7 @@ export default function CetagoryPageProduct({ products }) {
                     <p className="text-xs text-gray-600">প্রতি {p.unit}</p>
                   </div>
                 </div>
+
 
                 <div className="mt-4 flex items-end justify-between">
                   <div>
@@ -53,10 +53,10 @@ export default function CetagoryPageProduct({ products }) {
                   </span>
                 </div>
               </div>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

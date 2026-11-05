@@ -14,37 +14,51 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 // import { Form, FieldGroup, TextField, Label, Input, FieldError, Button } from "@better-auth/react";
 
 export default function SignUp() {
-
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
-    const { data: signupdata, error } = await authClient.signUp.email({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    });
-
-    if (data) {
-      alert("no error");
-      redirect("/signin");
-    }
-    if (error) {
-      console.error("Signup failed:", error);
-      alert(error.message);
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match.");
       return;
     }
 
-    console.log("Signup response:", signupdata);
+    setIsSubmitting(true);
+    try {
+      const { data: signupData, error } = await authClient.signUp.email({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (error) {
+        toast.error(error.message || "Could not create your account.");
+        return;
+      }
+
+      if (!signupData) {
+        toast.error("Could not create your account. Please try again.");
+        return;
+      }
+
+      router.push("/signin?auth=registered");
+    } catch (error) {
+      console.error("Signup failed:", error);
+      toast.error("Could not create your account. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <main className="min-h-screen bg-[#f1f6f2] flex flex-col items-center justify-center px-4 py-10">
@@ -58,7 +72,11 @@ export default function SignUp() {
         </p>
       </div>
       <div className="w-full max-w-xl bg-[#fbfdfb] border border-[#e2e9e3] rounded-xl p-5">
-        <Form className="w-full" onSubmit={handleSubmit}>
+        <Form
+          className="w-full"
+          onSubmit={handleSubmit}
+          onInvalid={() => toast.error("Please check the form fields.")}
+        >
           <FieldGroup className="gap-3">
             <TextField isRequired name="name">
               <Label className="text-xs font-medium text-gray-800 mt-2 mb-1">
@@ -137,9 +155,10 @@ export default function SignUp() {
           {/* Create Account Button */}
           <Button
             type="submit"
+            disabled={isSubmitting}
             className="w-full h-9 mt-3 rounded-lg bg-[#078c43] hover:bg-[#067a3a] text-white text-xs font-semibold shadow-md"
           >
-            অ্যাকাউন্ট তৈরি করুন
+            {isSubmitting ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "অ্যাকাউন্ট তৈরি করুন"}
           </Button>
         </Form>
 
@@ -177,7 +196,7 @@ export default function SignUp() {
         <p className="text-center text-xs text-gray-600 mt-4">
           অ্যাকাউন্ট আছে?{" "}
           <a
-            href="/login"
+            href="/signin"
             className="text-[#078c43] font-semibold hover:underline"
           >
             সাইন ইন করুন

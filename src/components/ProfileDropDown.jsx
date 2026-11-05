@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProfileDropDown() {
   const [open, setOpen] = useState(false);
@@ -13,9 +14,20 @@ export default function ProfileDropDown() {
   const user = session?.user;
 
   const handleSignOut = async () => {
-    const user = await authClient.signOut();
-    setOpen(false);
-    router.push('/signin');
+    try {
+      const { error } = await authClient.signOut();
+      if (error) {
+        toast.error(error.message || "Could not sign out.");
+        return;
+      }
+
+      toast.success("Signed out successfully.");
+      setOpen(false);
+      router.push("/signin");
+    } catch (error) {
+      console.error("Sign-out failed:", error);
+      toast.error("Could not sign out. Please try again.");
+    }
   };
 
   return (
