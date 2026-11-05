@@ -2,7 +2,7 @@
 
 export default function DropDown({ sort, onSortChange }) {
   return (
-    <div className="flex items-center justify-end gap-3 rounded-xl border bg-white p-4">
+    <div className="mx-auto max-w-6xl mt-5 flex items-center justify-end gap-3 rounded-xl border bg-white p-4">
       <span className="text-xs text-gray-500">সাজান</span>
 
       <select

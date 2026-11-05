@@ -16,7 +16,6 @@ export async function proxy(request) {
 
   if (!session?.user) {
     const signInUrl = new URL("/signin", request.url);
-    signInUrl.searchParams.set("auth", "protected");
     return NextResponse.redirect(signInUrl);
   }
 
