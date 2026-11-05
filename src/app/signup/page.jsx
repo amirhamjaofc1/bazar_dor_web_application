@@ -1,6 +1,10 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import {
+  authClient,
+  handleGoogle,
+  handleSignupGithub,
+} from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -10,11 +14,14 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+
 import { redirect } from "next/navigation";
 
 // import { Form, FieldGroup, TextField, Label, Input, FieldError, Button } from "@better-auth/react";
 
 export default function SignUp() {
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -26,6 +33,7 @@ export default function SignUp() {
       email: data.email,
       password: data.password,
     });
+
     if (data) {
       alert("no error");
       redirect("/signin");
@@ -145,14 +153,16 @@ export default function SignUp() {
         {/* Social Login */}
         <div className="grid grid-cols-2 gap-2">
           <button
+            onClick={handleGoogle}
             type="button"
-            className="h-9 flex items-center justify-center gap-1.5 border border-[#e0e8e1] rounded-lg text-[11px] font-medium text-gray-800 hover:bg-gray-50 transition"
+            className=" h-9 flex items-center justify-center gap-1.5 border border-[#e0e8e1] rounded-lg text-[11px] font-medium text-gray-800 hover:bg-gray-50 transition"
           >
             <span className="font-bold text-sm text-[#4285F4]">G</span>
             Google দিয়ে চালিয়ে যান
           </button>
 
           <button
+            onClick={handleSignupGithub}
             type="button"
             className="h-9 flex items-center justify-center gap-1.5 border border-[#e0e8e1] rounded-lg text-[11px] font-medium text-gray-800 hover:bg-gray-50 transition"
           >

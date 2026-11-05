@@ -1,6 +1,10 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import {
+  authClient,
+  handleGoogle,
+  handleSignupGithub,
+} from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -52,7 +56,6 @@ export default function SignIn() {
       <div className="w-full max-w-xl bg-[#fbfdfb] border border-[#e2e9e3] rounded-xl p-5">
         <Form className="w-full" onSubmit={handleSubmit}>
           <FieldGroup className="gap-3">
-
             {/* Email */}
             <TextField isRequired name="email" type="email">
               <Label className="text-xs font-medium text-gray-800 mt-2 mb-1">
@@ -96,7 +99,6 @@ export default function SignIn() {
               />
               <FieldError />
             </TextField>
-
           </FieldGroup>
 
           {/* Create Account Button */}
@@ -118,6 +120,7 @@ export default function SignIn() {
         {/* Social Login */}
         <div className="grid grid-cols-2 gap-2">
           <button
+            onClick={handleGoogle}
             type="button"
             className="h-9 flex items-center justify-center gap-1.5 border border-[#e0e8e1] rounded-lg text-[11px] font-medium text-gray-800 hover:bg-gray-50 transition"
           >
@@ -126,6 +129,7 @@ export default function SignIn() {
           </button>
 
           <button
+            onClick={handleSignupGithub}
             type="button"
             className="h-9 flex items-center justify-center gap-1.5 border border-[#e0e8e1] rounded-lg text-[11px] font-medium text-gray-800 hover:bg-gray-50 transition"
           >
