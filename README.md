@@ -80,7 +80,7 @@ Prices change almost every day. BazarDor puts them in one clean place, so people
 <div align="center">
 
 <!-- Add your screenshots to /public/screenshots and update the paths below -->
-<img src="/bazar_dor//public/screenshot/website.png" alt="BazarDor home page" width="90%" />
+<img src="./public/screenshot/website.png" alt="BazarDor home page" width="90%" />
 
 </div>
 
