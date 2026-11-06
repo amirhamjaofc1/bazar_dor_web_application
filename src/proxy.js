@@ -15,8 +15,8 @@ export async function proxy(request) {
   });
 
   if (!session?.user) {
-    const signInUrl = new URL("/signin", request.url);
-    return NextResponse.redirect(signInUrl);
+    return signInUrl = new URL("/signin", request.url);
+    // return NextResponse.redirect(signInUrl);
   }
 
   return NextResponse.next();
