@@ -19,7 +19,15 @@ export default async function Navlinks() {
           <div key={c.slug} className="flex shrink-0 items-center gap-2">
             {c.icon}
 
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <span
+                  role="status"
+                  aria-label="Loading category"
+                  className="h-4 w-16 animate-pulse rounded bg-gray-200"
+                />
+              }
+            >
               <CategoryLink categories={c} label={c.name} />
             </Suspense>
           </div>

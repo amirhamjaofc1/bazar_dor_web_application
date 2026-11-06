@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import CategoryProducts from "@/components/CetagoryDrowpdown";
+import { notFound } from "next/navigation";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 async function getCategoryProducts(slug) {
   "use cache";
@@ -13,6 +15,10 @@ async function CetagoryPageContent({ params }) {
   const { slug } = await params;
   const product = await getCategoryProducts(slug);
   console.log(product);
+
+  if(!product){
+    notFound()
+  }
   return (
     <section className="min-h-screen bg-[#f0f6f1] px-3 py-5 md:px-5">
       <div className="mx-auto max-w-6xl space-y-4">
@@ -42,7 +48,7 @@ async function CetagoryPageContent({ params }) {
 
 export default function CetagoryPage({ params }) {
   return (
-    <Suspense fallback={<p className="p-5 text-center">পণ্য লোড হচ্ছে...</p>}>
+    <Suspense fallback={<LoadingSkeleton />}>
       <CetagoryPageContent params={params} />
     </Suspense>
   );

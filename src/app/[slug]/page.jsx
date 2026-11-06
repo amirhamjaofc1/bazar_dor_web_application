@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import ProductSingleDetailsPage from "@/components/ProductSingleDetailsPage";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 async function getProduct(slug) {
   "use cache";
@@ -41,7 +42,7 @@ async function SingleProductContent({ params }) {
 
 export default function SingleProduct({ params }) {
   return (
-    <Suspense fallback={<p className="p-5 text-center">পণ্য লোড হচ্ছে...</p>}>
+    <Suspense fallback={<LoadingSkeleton />}>
       <SingleProductContent params={params} />
     </Suspense>
   );
