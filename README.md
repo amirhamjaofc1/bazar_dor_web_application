@@ -86,43 +86,7 @@ Prices change almost every day. BazarDor puts them in one clean place, so people
 
 ---
 
-## 🚀 Getting Started
 
-**1. Clone the project**
-
-```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
-```
-
-**2. Install packages**
-
-```bash
-npm install
-```
-
-**3. Add environment variables** — create a `.env.local` file:
-
-```env
-BETTER_AUTH_SECRET=your_secret
-BETTER_AUTH_URL=http://localhost:3000
-
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-```
-
-**4. Run the app**
-
-```bash
-npm run dev
-```
-
-Open **http://localhost:3000** in your browser. 🎉
-
----
 
 ## 🎯 What I Learned
 
