@@ -103,7 +103,7 @@ Prices change almost every day. BazarDor puts them in one clean place, so people
 
 Third-year CSE student • Aspiring full stack developer
 
-[![Live Demo](https://img.shields.io/badge/🌐_View_Live_Project-16a34a?style=for-the-badge)](https://bazar-dor-web-application-5uzt.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/🌐_View_Live_Project-16a34a?style=for-the-badge)](https://bazar-dor-web-application.vercel.app/)
 
 ⭐ **If you like this project, please give it a star!** ⭐
 
